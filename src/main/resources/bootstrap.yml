@@ -1,6 +1,11 @@
 spring:
   application:
     name: book-service
+  zipkin:
+    baseUrl: http://localhost:9411/
+  sleuth:
+    sampler:
+      probability: 1.0
 
   cloud:
     config:
@@ -11,9 +16,28 @@ spring:
 server:
   port: 8081
 
+# Items that apply to ALL profiles:
 eureka:
   client:
+    fetchRegistry: true
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+#      defaultZone: http://eureka-server-au.com:9001/eureka
   instance:
     preferIpAddress: true
+#    appname: book-service
+
+#---
+#
+#spring:
+#  profiles: book-service-replica_1
+#eureka:
+#  instance:
+#    appname: book-service
+#  client:
+#    fetchRegistry: true
+#    serviceUrl:
+#      defaultZone: http://eureka-server-en.com:9001/eureka
+#server:
+#  port: 8001
+
